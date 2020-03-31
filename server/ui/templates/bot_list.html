@@ -1,0 +1,24 @@
+
+
+<div class="container">
+	<form method="post" action="{{ url_for('api.mass_exec') }}">
+		<table>
+			<tr>
+				<th>IP</th>
+				<th>Username</th>
+				<th>OS</th>
+				<th>Select</th>
+			</tr>
+				
+			{% for bot in bots %}
+			<tr>
+				<td>{{bot.ip}}</td>
+				<td>{{bot.username}}</td>
+				<td>{{bot.os}}</td>
+				<td><input type="checkbox" id = "checkbox_{{bot.id}}" name="selection" value="{{bot.id}}"></td>
+			</tr>
+			{% endfor %}
+		</table>
+	</form>	
+
+</div>
