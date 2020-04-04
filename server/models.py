@@ -14,13 +14,6 @@ class Bot(db.Model):
 	last_ping = db.Column(db.DateTime())
 	def __init__(self, uid):
 		self.id = uid
-
-	def __init__(self, uid, ip, username, os):
-		self.id = uid
-		self.ip = ip
-		self.username = username
-		self.os = os
-
 	def push(self, cmd):
 		com = Command(self, cmd)
 		db.session.add(com)
