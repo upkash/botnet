@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_script import Manager
+from flask_script import Manager, Server
 from api import api
 from ui import ui
 from models import db 
@@ -14,7 +14,7 @@ app.register_blueprint(ui)							#add the blueprint for webserver
 app.register_blueprint(api , url_prefix="/api")		#add the blueprint for api at /api
 db.init_app(app)									#init app and manager
 manager = Manager(app)
-
+manager.add_command("runserver", Server(host="192.168.1.122", port='80'))
 
 #python server.py initdb 
 #initializes database
