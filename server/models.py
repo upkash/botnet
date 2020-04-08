@@ -14,7 +14,9 @@ class Bot(db.Model):
 	last_ping = db.Column(db.DateTime())
 	def __init__(self, uid):
 		self.id = uid
-	def push(self, cmd):
+
+	def push_command(self, cmd):
+		print("pushing ")
 		com = Command(self, cmd)
 		db.session.add(com)
 		db.session.commit()
