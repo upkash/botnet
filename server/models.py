@@ -16,7 +16,6 @@ class Bot(db.Model):
 		self.id = uid
 
 	def push_command(self, cmd):
-		print("pushing ")
 		com = Command(self, cmd)
 		db.session.add(com)
 		db.session.commit()

