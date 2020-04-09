@@ -12,6 +12,7 @@ class Bot(db.Model):
 	username = db.Column(db.String(150))
 	os = db.Column(db.String(150))
 	last_ping = db.Column(db.DateTime())
+	output = db.Column(db.Text(), default="")
 	def __init__(self, uid):
 		self.id = uid
 

@@ -56,9 +56,10 @@ def get_report(bot_id):
 	if not bot:
 		abort(404)
 	out = request.form['output']
+	print(out)
 	bot.output = cgi.escape(out)
 	db.session.add(bot)
-	db.sessiom.commit()
+	db.session.commit()
 	return ''
 
 
