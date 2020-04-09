@@ -1,3 +1,6 @@
+#######
+# This is malware tell ur antivirus to chill bruh
+#######
 from datetime import datetime
 import time
 import uuid
