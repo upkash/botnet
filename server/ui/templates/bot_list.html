@@ -7,6 +7,7 @@
 	
 		<table>
 			<tr>
+				<th>ID</th>
 				<th>IP</th>
 				<th>Username</th>
 				<th>OS</th>
@@ -15,6 +16,7 @@
 				
 			{% for bot in bots %}
 			<tr>
+				<td>{{bot.id}}</td>
 				<td>{{bot.ip}}</td>
 				<td>{{bot.username}}</td>
 				<td>{{bot.os}}</td>
