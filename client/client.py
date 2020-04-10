@@ -36,7 +36,7 @@ class Bot(object):
                     'platform': str(self.platform),
                     'hostname': self.hostname,
                     'username': self.username
-                }
+                }           
         r = requests.post("http://192.168.1.122" + '/api/' + self.uid + '/status', json=send)
         return r.text
 
