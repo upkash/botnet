@@ -1,7 +1,7 @@
 from flask_appbuilder import Model
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_login import UserMixin
 db = SQLAlchemy()
 #Model for a Bot has id, ip, hostname,username, os, last_ping, constructors, and a func to push a command to its table of commands
 class Bot(db.Model):
@@ -38,3 +38,6 @@ class Command(db.Model):
 		self.bot = bot
 		self.cmd = cmd
 		self.timestamp = datetime.now()
+
+# class User(UserMixin, db.Model):
+# 	id = "end"
