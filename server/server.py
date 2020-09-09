@@ -24,7 +24,7 @@ db.init_app(app)
 def initdb():
 	db.drop_all()
 	db.create_all()
-	bot = Bot(1234)
+	bot = Bot("1234")
 	bot.ip = 'asdfas'
 	db.session.add(bot)
 	db.session.commit()

