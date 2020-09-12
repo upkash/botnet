@@ -1,4 +1,5 @@
-#include "ransomware.h"
+#include <stdio.h>
+
 
 //rewrite of ransomware.py for easy client import and packing
 //
@@ -7,5 +8,7 @@
 //
 
 int main(int argc, char** argv){
+    printf("end\n");
+}
 
 
