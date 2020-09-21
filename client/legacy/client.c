@@ -9,7 +9,7 @@
 
 //slave node formulate request for the master given endpoint, req type, and data(json) for post
 char* create_request(char* type, char* endpoint, char* data){
-    char** request = (char*)malloc(200);
+    char* request = (char*)malloc(1000);
     strcat(request, type);
     strcat(request, " ");
     strcat(request, endpoint);
@@ -20,6 +20,7 @@ char* create_request(char* type, char* endpoint, char* data){
     strcat(request, "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.110 Safari/537.36\r\n");
     strcat(request, "Content-Type: application/json\r\n");
     strcat(request, data);
+    strcat(request, "\0");
     return request;
 
 }
@@ -27,13 +28,11 @@ char* create_request(char* type, char* endpoint, char* data){
 char* form_ping_json(){
     char* data = (char*)malloc(400);
     strcat(data, "{ \"platform\": ");
-    printf("end\n");
     strcat(data, "endlmfao,");
     strcat(data, " \"hostname\": ");
     strcat(data, "behenchod,");
     strcat(data, " \"username\": ");
     strcat(data, "fiveoh }");
-    printf(data);
     return data;
 }
 
@@ -45,6 +44,8 @@ char* send_request(char* request, char* type){
     int sockfd, bytes, sent, received, total;
 
     char message[1024], response[4096];
+    strcpy(message, request);
+    printf(message);
     printf("hanging\n");
     printf("catch\n");
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -63,10 +64,13 @@ char* send_request(char* request, char* type){
     if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0)
         printf("ERROR connecting");
     printf("hanging4\n");
-    total = strlen(message);
+    printf(request);
+    total = 1000;
+    printf("hanging after total\n");
+    printf(total);
     sent = 0;
     do {
-        bytes = write(sockfd,message+sent,total-sent);
+        bytes = write(sockfd,request+sent,total-sent);
         if (bytes < 0)
             printf("ERROR writing message to socket");
         if (bytes == 0)
@@ -102,9 +106,10 @@ char* send_request(char* request, char* type){
 
 
 int main(int argc, char** argv){
-    printf("print");
     char* data = form_ping_json();
-    printf("%s", data);
-    char* r = send_request(create_request("POST", "/api/6669/status","sdfsf"), "POST");
-   
+    printf("first malloc chillen\n");
+    //printf("%s", data);
+    char* req = create_request("POST", "/api/6669/status","sdfsf");
+    char* r = send_request(req, "POST");
+	printf("second malloc chillen\n");
 } 
