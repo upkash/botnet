@@ -7,7 +7,7 @@ db = SQLAlchemy()
 class Bot(db.Model):
 	__tablename__ = 'bots'
 	id = db.Column(db.String(), primary_key = True)
-	ip = db.Column(db.String(150), unique = True, nullable = False)
+	ip = db.Column(db.String(150), nullable = False)
 	hostname = db.Column(db.String(150))
 	username = db.Column(db.String(150))
 	os = db.Column(db.String(150))
