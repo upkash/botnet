@@ -40,6 +40,7 @@ def bot_list():
 @ui.route('/bots/<bot_id>')
 def bot_detail(bot_id):
 	bot = db.session.query(Bot).get(bot_id)
+	commands = db.session.query(Command).filter(Command.bot == bot)
 	if not bot:
 		abort(404)
-	return render_template('bot_detail.html', bot=bot)
+	return render_template('bot_detail.html', bot=bot, commands = commands)
